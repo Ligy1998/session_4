@@ -32,7 +32,7 @@ NORM <- data.frame(range, d)
 
 # plot 
 ggplot(NORM, aes(x = range, y = d)) +
-  geom_line(size = 2) +
+  geom_line(linewidth = 2) +
   labs(x = "x", 
        y = "Density") +
   theme_minimal()
