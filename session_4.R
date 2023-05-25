@@ -10,13 +10,15 @@ x_max <- 1
 range <- seq(x_min, x_max, length.out = 100) # sample space
 d <- dunif(range, min = x_min, max = x_max) # densities
 UNI <- data.frame(range, d)
-
+#All probability densities are 1 because the uniform distribution used has a constant probability density 
+#across the entire range, reflecting the property of a uniform distribution
 # Plot
 ggplot(UNI, aes(x = range, y = d)) +
-  geom_line(size = 2) +
+  geom_line(linewidth = 2) +
   labs(x = "x", 
        y = "Density") +
   theme_minimal()
+
 
 
 ## normal distribution 
@@ -89,7 +91,7 @@ ggplot(GAMMA, aes(x = range, y = d)) +
 a <- 5
 b <- 2
 
-theta <- seq(0,1, length.out = 1e3)
+theta <- seq(0,1, length.out = 1e3) 
 d <- dbeta(theta, shape1 = a, shape2 = b)
 summary <- data.frame(theta, d)
 
