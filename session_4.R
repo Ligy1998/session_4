@@ -101,7 +101,7 @@ ggplot(summary, aes(x = theta, y = d)) +
        y = "Density") +
   theme_minimal()
 
-no <- 1e3
+no <- 1e3 #choose 1000 sample
 set.seed(312)
 prior_smp <- data.frame(smp = rbeta(no, a, b))
 
@@ -115,7 +115,10 @@ ggplot(summary) +
   theme_minimal()
 
 preds <- data.frame(L =vector("numeric", nrow(prior_smp)))
-N <- 1e3
+#a data frame with a single column named "L" is created, 
+#where the number of rows in the data frame matches the number of rows in the prior_smp data frame. 
+#This empty data frame is then used to store the simulated data in the subsequent loop.
+N <- 1e3 # The total number of trials in the Bernoulli process.
 
 set.seed(832)
 for (i in seq_along(prior_smp$smp)){ 
@@ -123,6 +126,9 @@ for (i in seq_along(prior_smp$smp)){
   preds[i, "L"] <- rbinom(n = 1, size = N, prob = prior_smp[i, "smp"])
   
 }
+#you are simulating a single experiment with 100 trials, 
+#and the resulting random number will represent the number of successful outcomes observed in that particular experiment. 
+#The value of the generated random number will range from 0 to 100, indicating the count of successes.
 
 preds %>% ggplot(aes(x=L)) + 
   geom_histogram(fill = "#F8766D", color = "#F8766D", 
