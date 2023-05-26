@@ -92,8 +92,8 @@ a <- 5
 b <- 2
 
 theta <- seq(0,1, length.out = 1e3) 
-d <- dbeta(theta, shape1 = a, shape2 = b)
-summary <- data.frame(theta, d)
+d <- dbeta(theta,shape1 = a, shape2 = b)
+summary <- data.frame(theta, d) #theta在beta型的概率密度分布(其实就是给x轴换成theta)
 
 ggplot(summary, aes(x = theta, y = d)) +
   geom_line(size = 1, linetype = "dashed") +
@@ -104,7 +104,7 @@ ggplot(summary, aes(x = theta, y = d)) +
 no <- 1e3 #choose 1000 sample
 set.seed(312)
 prior_smp <- data.frame(smp = rbeta(no, a, b))
-
+# rbeta() function is used to generate random numbers from a beta distribution. 生成一千个theta
 ggplot(summary) +
   geom_line(size = 1, linetype = "dashed", 
             aes(x = theta, y = d)) +
@@ -124,7 +124,8 @@ set.seed(832)
 for (i in seq_along(prior_smp$smp)){ 
   
   preds[i, "L"] <- rbinom(n = 1, size = N, prob = prior_smp[i, "smp"])
-  
+#伯努利试验，二项试验是一系列独立的伯努利试验的重复进行，每次试验都有相同的成功概率。
+#每个theta测试一千次，n是一千次里成功的次数,一共一千个theta
 }
 #you are simulating a single experiment with 100 trials, 
 #and the resulting random number will represent the number of successful outcomes observed in that particular experiment. 
@@ -137,7 +138,7 @@ preds %>% ggplot(aes(x=L)) +
   labs(x = "Number of Simulated L out of 1000",
        y = "Simulated Frequency") + 
   theme_minimal()
-
+#横坐标是一千次里成功的次数，纵坐标是这个成功次数出现的频率
 
 # Testing the model ----------------------------------------------
 
